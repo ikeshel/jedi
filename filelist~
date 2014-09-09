@@ -3,22 +3,24 @@
 # ? -> i.keshelashvili@fz-juelich.de
 #
 
-TIMING:	58.5	2
+#		start		delta T
+#
+TIMING:		58.5		5
 
 # please write exactely in this format
 #
 #           filename                   calculated frequency [MHz]
-#FILE:	../data/Run2911.root		871.4333
-#FILE:	../data/Run2910.root		871.4323
-#FILE:	../data/Run2912.root		871.4313
-#FILE:	../data/Run2913.root		871.4303
-#FILE:	../data/Run2914.root		871.4293
+FILE:	../data/Run2911.root		871.4333
+FILE:	../data/Run2910.root		871.4323
+FILE:	../data/Run2912.root		871.4313
+FILE:	../data/Run2913.root		871.4303
+FILE:	../data/Run2914.root		871.4293
 
-FILE:	../data/run_2911.root		871.4333
-FILE:	../data/run_2910.root		871.4323
-FILE:	../data/run_2912.root		871.4313
-FILE:	../data/run_2913.root		871.4303
-FILE:	../data/run_2914.root		871.4293
+#FILE:	../data/run_2911.root		871.4333
+#FILE:	../data/run_2910.root		871.4323
+#FILE:	../data/run_2912.root		871.4313
+#FILE:	../data/run_2913.root		871.4303
+#FILE:	../data/run_2914.root		871.4293
 
 #FILE:	../data/run_2954.root		871.4333
 #FILE:	../data/run_2955.root		871.4323
