@@ -1,0 +1,22 @@
+//
+// question ? goto i.keshelashvili@fz-juelich.de
+// 
+
+1)
+to copy file 
+>./copy_file.sh run_number (example >./copy_file.sh 3055)
+
+
+2)
+to run software just type root
+>root 
+
+
+
+
+to compile software please type
+>make
+
+to clean
+>make clean
+

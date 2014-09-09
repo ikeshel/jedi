@@ -1,0 +1,11 @@
+
+//
+// ? -> i.keshelashvili@fz-juelich.de
+//
+
+{
+  gSystem->SetBuildDir("./lib", 1);
+
+  gSystem->CompileMacro("TCycleAnalyzer.C", "kfO-");
+  gSystem->CompileMacro("analyse.C", "kfO-");
+}
