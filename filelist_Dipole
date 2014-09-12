@@ -1,0 +1,18 @@
+# RF-Dipole
+#
+# please write exactly in this format
+#
+#           filename                   calculated frequency [MHz]
+
+#RF-Dipole 11.09.2014
+#
+FILE:	data/Run3457.root	       871.42780
+#FILE:	data/Run3459.root	       871.42775
+FILE:	data/Run3460.root	       871.42785
+FILE:	data/Run3478.root	       871.42782
+FILE:	data/Run3480.root	       871.42780
+FILE:	data/Run3481.root	       871.42781
+FILE:	data/Run3483.root	       871.42775
+FILE:	data/Run3485.root	       871.42778
+FILE:	data/Run3487.root	       871.42776
+

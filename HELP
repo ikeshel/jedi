@@ -1,0 +1,4 @@
+
+printing
+
+lpr -o scaling=50 -P

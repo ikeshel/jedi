@@ -42,19 +42,8 @@ private:
 
   TFile *fin;        //
   int    ReadFile(); //
-  void   LRCrossRatio();
 
 protected:
-  TH1D    *hAsLR[3]; // histos
-  TH1D    *hAsUD[3];  
-  TH1D    *hBCT[3];  
-
-  TH1D * hR01; // scallers
-  TH1D * hL01;
-  TH1D * hR02;
-  TH1D * hL02;
-
-  TH1D    *hCR; //
 
 public:
   enum CycleType {S15, S01, S02};
@@ -77,7 +66,9 @@ public:
   int      fSelectedHisto; // 0->15; 1->01; 2->02
   void     SelectHisto(int n);
 
-  TH1D * hSelected; // selected histo
+  TH1D    *hAsLR[3];
+  TH1D    *hAsUD[3];  
+  TH1D    *hBCT[3];  
 
   TF1     *fAsLR;
   TF1     *fStartPol;

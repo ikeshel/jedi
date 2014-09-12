@@ -331,10 +331,10 @@ void SaveAll() {
 // + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 // + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 void analyse() {
-  cHisto = new TCanvas( "cHisto", "Oscillation", 0, 0, 800, 700);
+  cHisto = new TCanvas( "cHisto", "Oscillation", 0, 0, 800, 500);
   cHisto->SetRightMargin(0.02);
 
-  cGraph = new TCanvas( "cGraph", "ResonanceFr", 1020, 0, 500, 700);
+  cGraph = new TCanvas( "cGraph", "ResonanceFr", 1020, 0, 500, 500);
   cGraph->SetRightMargin(0.02);
 
   //___ create modules

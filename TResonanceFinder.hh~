@@ -1,4 +1,5 @@
 
+
 //
 // ? -> i.keshelashvili@fz-juelich.de
 //
@@ -22,14 +23,12 @@
 #include <TGraphErrors.h>
 #include <TF1.h>
 #include <TLine.h>
-#include <TPostScript.h>
 
 class TResonanceFinder { 
 
 public :
 
   TVirtualPad * cMain;       //
-  TVirtualPad * GetPad() {return cMain; };
   void SetPad(TVirtualPad *cc) { cMain = cc; };
 
   TGraphErrors * grSpinRes; // 

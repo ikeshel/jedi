@@ -70,9 +70,7 @@ void TResonanceFinder::DoFit() {
   fFitFunc->SetRange( grSpinRes->GetXaxis()->GetXmin(),
 		      grSpinRes->GetXaxis()->GetXmax() ); // x-axis range
 
-  //  fFitFunc->SetParameters(1.14128e+07, 871.4278, 0.15); //  
-  fFitFunc->SetParameters( 8.5e+06, 871.4278, 0.051); // 
-
+  fFitFunc->SetParameters(1.14128e+07, 871.4278, 0.15); //  
   fFitFunc->SetParLimits(0, 1, 1e+11); // parabolic
   fFitFunc->SetParLimits(1, 800, 900); // kHz resonance freq.
   fFitFunc->SetParLimits(2, 0.001, 20); // Hz oscillation

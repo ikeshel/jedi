@@ -52,8 +52,9 @@ TCycleAnalyzer::~TCycleAnalyzer() {
 // =============================================================================
 void TCycleAnalyzer::LRCrossRatio()
 {
-  //
-  //   
+  hCR->SetName("hCR");
+  hCR->SetTitle("Cross-Ratio Left-Right SpinState 01/02");
+    
   for (int i=1; i<=hCR->GetNbinsX(); i++) {
     Double_t l1 = hL01->GetBinContent(i);
     Double_t r1 = hR01->GetBinContent(i);
@@ -84,9 +85,9 @@ void TCycleAnalyzer::SelectHisto(int n) {
 // =============================================================================
 void TCycleAnalyzer::SetRebin(int rebin) { 
   // Rebinning all histograms
-  hSelected->Rebin( rebin );
-  hSelected->Scale( 1.0/rebin );
-
+  hAsLR[1]->Rebin( rebin );
+  hAsLR[2]->Rebin( rebin );
+  
 } // end SetRebin(int in)
 
 // =============================================================================
@@ -131,9 +132,8 @@ void TCycleAnalyzer::DoFit() {
 
   // find avarage value of last bins
   const int delta = 4;
-
-  int nbins = hSelected->GetNbinsX() -4;
-  double offset = hSelected->Integral(nbins-delta, nbins)/(delta+1);
+  int nbins = hAsLR[fSelectedHisto]->GetNbinsX() -4;
+  double offset = hAsLR[fSelectedHisto]->Integral(nbins-delta, nbins)/(delta+1);
 
   // main fit of precession
   //                    const  phase  freq        exp     damping
@@ -146,17 +146,17 @@ void TCycleAnalyzer::DoFit() {
   fAsLR->SetParLimits(3, -100, 100);
   fAsLR->SetParLimits(4, fDamping-10, fDamping+10);
 
-  hSelected->Fit( fAsLR, "+R0Q", "");
+  hAsLR[fSelectedHisto]->Fit( fAsLR, "+R0Q", "");
 
-  hSelected->Fit( fAsLR, "+R0", "");
+  hAsLR[fSelectedHisto]->Fit( fAsLR, "+R0", "");
 
   // end pol
   fStopPol->SetRange( lStop->GetX1()+2, lStop->GetX1()+20 );
-  hSelected->Fit( fStopPol, "+R0Q", "");
+  hAsLR[fSelectedHisto]->Fit( fStopPol, "+R0Q", "");
 
   // start pol 
   fStartPol->SetRange( lStart->GetX1()-15, lStart->GetX1()-2 );
-  hSelected->Fit( fStartPol, "+R0Q", "");
+  hAsLR[fSelectedHisto]->Fit( fStartPol, "+R0Q", "");
 
 } // DoFit()
 
@@ -194,7 +194,6 @@ int TCycleAnalyzer::ReadFile() {
   //
   hCR = new TH1D( *hAsLR[1] );
   hCR->Reset();
-  hCR->SetName("hCR");
 
   hR01 = (TH1D*) fin->Get("Histograms/Scaler/Sc25_01")->Clone("hSc25_Run"+strRun+"_01");
   hL01 = (TH1D*) fin->Get("Histograms/Scaler/Sc27_01")->Clone("hSc27_Run"+strRun+"_01");
@@ -212,9 +211,6 @@ int TCycleAnalyzer::ReadFile() {
   //   hBCT[2] = (TH1D*) fin->Get("Histograms/BCT/BCT_02")->Clone();
   
   fin->Close();
-
-  //  hSelected =  hAsLR[1];
-  hSelected = hCR;
   return 0;
 } // end ReadFile()
 
@@ -227,15 +223,15 @@ void TCycleAnalyzer::DoDraw() {
   strFileName.ReplaceAll(".root","");
   cMain->SetTitle( Form("c%s", strFileName.Data() ) );
   
-  hSelected->SetLineColor(kBlue-8);
-  hSelected->SetMarkerStyle(20);
+  hAsLR[fSelectedHisto]->SetLineColor(kBlue-8);
+  hAsLR[fSelectedHisto]->SetMarkerStyle(20);
   
-  hSelected->GetXaxis()->SetRangeUser(lStart->GetX1()-10, lStop->GetX1()+10);
-  hSelected->SetTitle(  Form("%s |  f: %6.4f [Hz] #tau: %6.4f [s];Time [s]; CR", 
-			     strFileName.Data(), 
-			     fAsLR->GetParameter(2),
-			     fAsLR->GetParameter(4) ) );
-  hSelected->Draw();
+  hAsLR[fSelectedHisto]->GetXaxis()->SetRangeUser(lStart->GetX1()-10, lStop->GetX1()+10);
+  hAsLR[fSelectedHisto]->SetTitle(  Form("file: %s |  f: %6.4f [Hz] #tau: %6.4f [s]", 
+					 strFileName.Data(), 
+					 fAsLR->GetParameter(2),
+					 fAsLR->GetParameter(4) ) );
+  hAsLR[fSelectedHisto]->Draw();
   
   fAsLR->SetLineColor(kBlue);
   fAsLR->Draw("same");
@@ -249,22 +245,22 @@ void TCycleAnalyzer::DoDraw() {
   fStopPol->Draw("same");
     
   // start line (green)
-  lStart->SetY1( hSelected->GetMinimum() );
-  lStart->SetY2( hSelected->GetMaximum() );
+  lStart->SetY1( hAsLR[fSelectedHisto]->GetMinimum() );
+  lStart->SetY2( hAsLR[fSelectedHisto]->GetMaximum() );
 
   lStart->SetLineWidth(3);
   lStart->SetLineColor(kGreen+2);
   lStart->Draw();
 
   // stop line (red)
-  lStop->SetY1( hSelected->GetMinimum() );
-  lStop->SetY2( hSelected->GetMaximum() );
+  lStop->SetY1( hAsLR[fSelectedHisto]->GetMinimum() );
+  lStop->SetY2( hAsLR[fSelectedHisto]->GetMaximum() );
 
   lStop->SetLineWidth(3);
   lStop->SetLineColor(kRed);
   lStop->Draw();
 
-  //  tex->SetText(hSelected->GetMaximumX(), hSelected->GetMaximum(), "ddd");
+  //  tex->SetText(hAsLR[fSelectedHisto]->GetMaximumX(), hAsLR[fSelectedHisto]->GetMaximum(), "ddd");
   //  tex->Draw();
 
   cMain->Update();

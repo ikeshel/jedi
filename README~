@@ -2,16 +2,6 @@
 // question ? goto i.keshelashvili@fz-juelich.de
 // 
 
-TODO list:
-
--- printing
--- bining
--- graph x errors
--- 
-
-lpr -o scaling=50 -P
-
-
 to run software just type root in directory edm@jedi01:~/Sep14$
 >root 
 
